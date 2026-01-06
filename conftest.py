@@ -37,6 +37,7 @@ def sample_camera() -> Camera:
         id="exteriorCameraId",
         name="Exterior",
         recording_start=datetime(2020, 1, 8, 23, 26, 9, 586000),
+        recording_end=datetime(2020, 2, 8, 0, 37, 15, 69000),
     )
 
 
