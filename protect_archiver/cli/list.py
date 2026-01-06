@@ -98,7 +98,7 @@ def list_footage(
 
         if cameras != "all":
             camera_s = set(cameras.split(","))
-            camera_list = [c for c in camera_list if c["id"] in camera_s]
+            camera_list = [c for c in camera_list if c.id in camera_s]
 
         # Build output data structure
         footage_ranges = {}
