@@ -1,4 +1,5 @@
 import json
+import tempfile
 
 import click
 
@@ -89,10 +90,12 @@ def list_footage(
         username=username,
         password=password,
         verify_ssl=verify_ssl,
-        destination_path="/tmp",  # Not used for listing, but required by ProtectClient
+        destination_path=tempfile.gettempdir(),  # Not used for listing, but required by ProtectClient
     )
 
     try:
+        from datetime import datetime
+
         # get camera list
         camera_list = client.get_camera_list()
 
@@ -105,9 +108,13 @@ def list_footage(
         for camera in sorted(camera_list, key=lambda c: c.name):
             # Convert datetime objects to ISO format strings for JSON serialization
             start_str = (
-                camera.recording_start.isoformat() if camera.recording_start.year != 1 else None
+                camera.recording_start.isoformat()
+                if camera.recording_start != datetime.min
+                else None
             )
-            end_str = camera.recording_end.isoformat() if camera.recording_end.year != 1 else None
+            end_str = (
+                camera.recording_end.isoformat() if camera.recording_end != datetime.min else None
+            )
 
             # Create sorted interval set (single interval per camera)
             intervals = []
