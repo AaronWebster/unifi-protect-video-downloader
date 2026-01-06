@@ -1,5 +1,6 @@
 from .download import *  # NOQA
 from .events import *  # NOQA
+from .list import *  # NOQA
 from .sync import *  # NOQA
 
 
